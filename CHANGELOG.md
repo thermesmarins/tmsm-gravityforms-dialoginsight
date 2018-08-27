@@ -1,3 +1,4 @@
+### 1.0.1: August 27th, 2018
 * Remove sensitive debug info
 * Avoid calls if project ID not set
 

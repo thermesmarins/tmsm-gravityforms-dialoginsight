@@ -487,6 +487,9 @@ class GFDialogInsight extends GFFeedAddOn {
 
 		// Get current Project ID.
 		$project_id = $this->get_setting( 'dialoginsightProject' );
+		if ( empty( $project_id ) ) {
+			return;
+		}
 
 		// Prepare list request parameters.
 		$params = array( 'idProject' => $project_id );
@@ -588,6 +591,9 @@ class GFDialogInsight extends GFFeedAddOn {
 
 		// Get current Project ID.
 		$project_id = $this->get_setting( 'dialoginsightProject' );
+		if ( empty( $project_id ) ) {
+			return;
+		}
 
 		// Prepare list request parameters.
 		$params = array( 'idProject' => $project_id );
@@ -886,6 +892,9 @@ class GFDialogInsight extends GFFeedAddOn {
 
 		$list_id    = $feed['meta']['dialoginsightList'];
 		$project_id = $feed['meta']['dialoginsightProject'];
+		if ( empty( $project_id ) || empty( $list_id ) ) {
+			return;
+		}
 
 		// Prepare transaction type for filter.
 		$transaction = $member_found ? 'Update' : 'Subscribe';

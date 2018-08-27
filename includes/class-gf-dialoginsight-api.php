@@ -244,7 +244,6 @@ class GF_DialogInsight_API {
 			$method  = 'List';
 		}
 
-		error_log( var_export( $body, true ) );
 
 		// Build base request arguments.
 		$args = array(

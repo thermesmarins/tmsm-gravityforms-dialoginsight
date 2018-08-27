@@ -295,6 +295,14 @@ class GF_DialogInsight_API {
 
 		}
 
+		if($response['body']['Success'] !== true){
+
+			$exception = new GF_DialogInsight_Exception( $response['body']['ErrorMessage'], $response['body']['ErrorCode'] );
+			$exception->setDetail( $response['body']['ErrorMessage'] );
+			$exception->setErrors( $response['body']['ErrorMessage'] );
+			throw $exception;
+		}
+
 		// Remove links from response.
 		unset( $response['body']['_links'] );
 

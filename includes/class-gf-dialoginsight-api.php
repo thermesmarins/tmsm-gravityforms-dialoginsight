@@ -61,6 +61,7 @@ class GF_DialogInsight_API {
 	 * @access public
 	 *
 	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
 	 *
 	 * @return array
 	 */
@@ -80,6 +81,7 @@ class GF_DialogInsight_API {
 	 * @param array $params Params.
 	 *
 	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
 	 *
 	 * @return array
 	 */
@@ -100,6 +102,7 @@ class GF_DialogInsight_API {
 	 * @access public
 	 *
 	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
 	 *
 	 * @return array
 	 */
@@ -119,6 +122,7 @@ class GF_DialogInsight_API {
 	 * @param string $list_id DialogInsight list ID.
 	 *
 	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
 	 *
 	 * @return array
 	 */
@@ -138,6 +142,7 @@ class GF_DialogInsight_API {
 	 * @param string $email_address Email address.
 	 *
 	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
 	 *
 	 * @return array
 	 */
@@ -159,6 +164,7 @@ class GF_DialogInsight_API {
 	 * @param array $params Params.
 	 *
 	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
 	 *
 	 * @return array
 	 */
@@ -180,6 +186,7 @@ class GF_DialogInsight_API {
 	 * @param array $params Params.
 	 *
 	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
 	 *
 	 * @return array
 	 */

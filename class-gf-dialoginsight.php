@@ -635,6 +635,11 @@ class GFDialogInsight extends GFFeedAddOn {
 					$field_type = array( 'address' );
 				}
 
+				// If this is a required field different than Email, make it not required
+				if ( 'EMail' !== $merge_field['Code'] &&  $merge_field['isRequired']) {
+					$merge_field['isRequired'] = false;
+				}
+
 				// Add to field map.
 				$field_map[ $merge_field['Code'] ] = array(
 					'name'       => $merge_field['Code'],

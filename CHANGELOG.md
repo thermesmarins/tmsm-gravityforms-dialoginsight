@@ -1,3 +1,4 @@
+### 1.0.2: March 8th, 2019
 * Make required fields not required
 
 ### 1.0.1: August 27th, 2018

@@ -1,3 +1,5 @@
+* WooCommerce: on product admin page, create a button leading to product report
+
 ### 1.0.2: March 8th, 2019
 * Make required fields not required
 

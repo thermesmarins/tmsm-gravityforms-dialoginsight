@@ -1,3 +1,5 @@
+* Fix Exceptions
+
 ### 1.0.2: March 8th, 2019
 * Make required fields not required
 

@@ -272,6 +272,8 @@ class GF_DialogInsight_API {
 			throw new GF_DialogInsight_Exception( $response->get_error_message() );
 		}
 
+		error_log(print_r($response, true));
+
 		// Decode response body.
 		$response['body'] = json_decode( $response['body'], true );
 
@@ -281,19 +283,12 @@ class GF_DialogInsight_API {
 		if ( $response_code != 200 ) {
 
 			// If status code is set, throw exception.
-			if ( isset( $response['body']['status'] ) && isset( $response['body']['title'] ) ) {
+			if ( isset( $response['body']['ErrorCode'] ) ) {
 
 				// Initialize exception.
-				$exception = new GF_DialogInsight_Exception( $response['body']['title'], $response['body']['status'] );
-
-				// Add detail.
-				$exception->setDetail( $response['body']['detail'] );
-
-				// Add errors if available.
-				if ( isset( $response['body']['errors'] ) ) {
-					$exception->setErrors( $response['body']['errors'] );
-				}
-
+				$exception = new GF_DialogInsight_Exception( $response['body']['ErrorCode'], $response['body']['ErrorMessage'] );
+				$exception->setDetail( $response['body']['ErrorMessage'] );
+				$exception->setErrors( $response['body']['ErrorMessage'] );
 				throw $exception;
 
 			}
@@ -304,7 +299,7 @@ class GF_DialogInsight_API {
 
 		if($response['body']['Success'] !== true){
 
-			$exception = new GF_DialogInsight_Exception( $response['body']['ErrorMessage'], $response['body']['ErrorCode'] );
+			$exception = new GF_DialogInsight_Exception( $response['body']['ErrorCode'], $response['body']['ErrorMessage'] );
 			$exception->setDetail( $response['body']['ErrorMessage'] );
 			$exception->setErrors( $response['body']['ErrorMessage'] );
 			throw $exception;

@@ -1,3 +1,4 @@
+### 1.0.3: June 25th, 2019
 * Fix Exceptions
 
 ### 1.0.2: March 8th, 2019

@@ -8,7 +8,7 @@
  * Plugin Name:       TMSM Gravity Forms DialogInsight Add-On
  * Plugin URI:        https://github.com/thermesmarins/tmsm-gravityforms-dialoginsight
  * Description:       Integrates Gravity Forms with DialogInsight, allowing form submissions to be automatically sent to your DialogInsight account
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            Nicolas Mollet
  * Author URI:        https://github.com/nicomollet
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@
  * Requires PHP:      5.6
  */
 
-define( 'GF_DIALOGINSIGHT_VERSION', '1.0.2' );
+define( 'GF_DIALOGINSIGHT_VERSION', '1.0.3' );
 
 // If Gravity Forms is loaded, bootstrap the DialogInsight Add-On.
 add_action( 'gform_loaded', array( 'GF_DialogInsight_Bootstrap', 'load' ), 5 );

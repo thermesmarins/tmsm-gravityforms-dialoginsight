@@ -1,3 +1,4 @@
+### 1.0.4: August 26th, 2020
 * Send an email when API could not initialize
 
 ### 1.0.3: June 25th, 2019

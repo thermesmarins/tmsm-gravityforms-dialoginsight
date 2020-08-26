@@ -1,3 +1,5 @@
+* Send an email when API could not initialize
+
 ### 1.0.3: June 25th, 2019
 * Fix Exceptions
 

@@ -777,6 +777,12 @@ class GFDialogInsight extends GFFeedAddOn {
 			$this->add_feed_error( esc_html__( 'Unable to process feed because API could not be initialized.', 'tmsm-gravityforms-dialoginsight' ),
 				$feed, $entry, $form );
 
+			$email = wp_mail(
+				get_option( 'admin_email' ),
+				wp_specialchars_decode( sprintf( __('TMSM Gravity Forms Dialog Insight on %s: API not initialized', 'tmsm-gravityforms-dialoginsight'), get_option( 'blogname' ) ) ),
+				wp_specialchars_decode( sprintf( __('TMSM Gravity Forms Dialog Insight on %s: API not initialized', 'tmsm-gravityforms-dialoginsight'), get_option( 'blogname' ) ) )
+			);
+
 			return $entry;
 		}
 

@@ -1,3 +1,4 @@
+### 1.0.5: September 11th, 2020
 * Remove Dialog Insight list field
 * Add "Map Optins" fields
 * After installation of this new version, need to change forms: 1/ Remove the optin checkbox field and add an optin radio field with Yes=True/No=False as values 2/  Edit the DialogInsight feed and map the optin to the radio field 

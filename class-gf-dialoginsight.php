@@ -331,17 +331,6 @@ class GFDialogInsight extends GFFeedAddOn {
 				'dependency' => 'dialoginsightProject',
 				'fields'     => array(
 					array(
-						'name'     => 'dialoginsightList',
-						'label'    => esc_html__( 'DialogInsight List', 'tmsm-gravityforms-dialoginsight' ),
-						'type'     => 'dialoginsight_list',
-						'required' => true,
-						'tooltip'  => sprintf(
-							'<h6>%s</h6>%s',
-							esc_html__( 'DialogInsight List', 'tmsm-gravityforms-dialoginsight' ),
-							esc_html__( 'Select the DialogInsight list you would like to add your contacts to.', 'tmsm-gravityforms-dialoginsight' )
-						),
-					),
-					array(
 						'name'      => 'mappedFields',
 						'label'     => esc_html__( 'Map Fields', 'tmsm-gravityforms-dialoginsight' ),
 						'type'      => 'field_map',
@@ -354,6 +343,19 @@ class GFDialogInsight extends GFFeedAddOn {
 						),
 					),
 					array(
+						'name'      => 'mappedOptins',
+						'label'     => esc_html__( 'Map Optins', 'tmsm-gravityforms-dialoginsight' ),
+						'type'      => 'field_map',
+						'field_map' => $this->merge_vars_optin_map(),
+						'tooltip'   => sprintf(
+							'<h6>%s</h6>%s',
+							esc_html__( 'Map Optins', 'tmsm-gravityforms-dialoginsight' ),
+							esc_html__( 'Associate your DialogInsight optins to the appropriate Gravity Form fields by selecting the appropriate form field from the list.',
+								'tmsm-gravityforms-dialoginsight' )
+						),
+					),
+
+					array(
 						'name'    => 'optinCondition',
 						'label'   => esc_html__( 'Conditional Logic', 'tmsm-gravityforms-dialoginsight' ),
 						'type'    => 'feed_condition',
@@ -364,6 +366,7 @@ class GFDialogInsight extends GFFeedAddOn {
 								'tmsm-gravityforms-dialoginsight' )
 						),
 					),
+
 					array( 'type' => 'save' ),
 				),
 			),
@@ -464,112 +467,6 @@ class GFDialogInsight extends GFFeedAddOn {
 
 	}
 
-	/**
-	 * Define the markup for the dialoginsight_list type field.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 *
-	 * @param array $field The field properties.
-	 * @param bool  $echo  Should the setting markup be echoed. Defaults to true.
-	 *
-	 * @return string
-	 */
-	public function settings_dialoginsight_list( $field, $echo = true ) {
-
-		// Initialize HTML string.
-		$html = '';
-
-		// If API is not initialized, return.
-		if ( ! $this->initialize_api() ) {
-			return $html;
-		}
-
-		// Get current Project ID.
-		$project_id = $this->get_setting( 'dialoginsightProject' );
-		if ( empty( $project_id ) ) {
-			return;
-		}
-
-		// Prepare list request parameters.
-		$params = array( 'idProject' => $project_id );
-
-
-		try {
-
-			// Log contact lists request parameters.
-			$this->log_debug( __METHOD__ . '(): Retrieving contact lists; params: ' . print_r( $params, true ) );
-
-			// Get lists.
-			$lists = $this->api->get_lists( $params );
-
-		} catch ( Exception $e ) {
-
-			// Log that contact lists could not be obtained.
-			$this->log_error( __METHOD__ . '(): Could not retrieve DialogInsight contact lists; ' . $e->getMessage() );
-
-			// Display error message.
-			printf( esc_html__( 'Could not load DialogInsight contact lists. %sError: %s', 'tmsm-gravityforms-dialoginsight' ), '<br/>',
-				$e->getMessage() );
-
-			return;
-
-		}
-
-		//$this->log_error( __METHOD__ . '(): Lists:' );
-		//$this->log_error( var_export($lists, true) );
-
-		// If no lists were found, display error message.
-		if ( empty( $lists ) ) {
-
-			// Log that no lists were found.
-			$this->log_error( __METHOD__ . '(): Could not load DialogInsight contact lists; no lists found.' );
-
-			// Display error message.
-			printf( esc_html__( 'Could not load DialogInsight contact lists. %sError: %s', 'tmsm-gravityforms-dialoginsight' ), '<br/>',
-				esc_html__( 'No lists found.', 'tmsm-gravityforms-dialoginsight' ) );
-
-			return;
-
-		}
-
-		// Log number of lists retrieved.
-		$this->log_debug( __METHOD__ . '(): Number of lists: ' . count( $lists ) );
-
-		// Initialize select options.
-		$options = array(
-			array(
-				'label' => esc_html__( 'Select a DialogInsight List', 'tmsm-gravityforms-dialoginsight' ),
-				'value' => '',
-			),
-		);
-
-		// Loop through DialogInsight lists.
-		foreach ( $lists as $list ) {
-
-			// Add list to select options.
-			$options[] = array(
-				'label' => esc_html( $list['Labels'][0]['Value'] ),
-				'value' => esc_attr( $list['Code'] ),
-			);
-
-		}
-
-		// Add select field properties.
-		$field['type']     = 'select';
-		$field['choices']  = $options;
-		$field['onchange'] = 'jQuery(this).parents("form").submit();';
-
-		// Generate select field.
-		$html = $this->settings_select( $field, false );
-
-		if ( $echo ) {
-			echo $html;
-		}
-
-		return $html;
-
-	}
 
 	/**
 	 * Return an array of DialogInsight list fields which can be mapped to the Form fields/entry meta.
@@ -606,14 +503,11 @@ class GFDialogInsight extends GFFeedAddOn {
 		} catch ( Exception $e ) {
 
 			// Log error.
-			$this->log_error( __METHOD__ . '(): Unable to get merge fields for DialogInsight list; ' . $e->getMessage() );
+			$this->log_error( __METHOD__ . '(): Unable to get merge fields for DialogInsight project; ' . $e->getMessage() );
 
 			return $field_map;
 
 		}
-
-		//$this->log_error( __METHOD__ . '(): Fields:' );
-		//$this->log_error( var_export($merge_fields, true) );
 
 
 		// If merge fields exist, add to field map.
@@ -631,12 +525,12 @@ class GFDialogInsight extends GFFeedAddOn {
 				}
 
 				// If this is an address merge field, set field type to "address".
-				if ( 'address' === $merge_field['DataType'] ) {
+				if ( isset($merge_field['DataType']) && 'address' === $merge_field['DataType'] ) {
 					$field_type = array( 'address' );
 				}
 
 				// If this is a required field different than Email, make it not required
-				if ( 'EMail' !== $merge_field['Code'] &&  $merge_field['isRequired']) {
+				if ( 'EMail' !== $merge_field['Code'] && isset($merge_field['isRequired']) && $merge_field['isRequired']) {
 					$merge_field['isRequired'] = false;
 				}
 
@@ -644,7 +538,7 @@ class GFDialogInsight extends GFFeedAddOn {
 				$field_map[ $merge_field['Code'] ] = array(
 					'name'       => $merge_field['Code'],
 					'label'      => $merge_field['Labels'][0]['Value'],
-					'required'   => $merge_field['isRequired'],
+					'required'   => isset($merge_field['isRequired']) && $merge_field['isRequired'],
 					'field_type' => $field_type,
 				);
 
@@ -653,6 +547,75 @@ class GFDialogInsight extends GFFeedAddOn {
 		}
 
 		return $field_map;
+	}
+
+	/**
+	 * Return an array of DialogInsight list optins which can be mapped to the Form fields/entry meta.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 *
+	 * @return array
+	 */
+	public function merge_vars_optin_map() {
+
+		// Initialize optin map array.
+		$optin_map = array();
+
+		// If unable to initialize API, return optin map.
+		if ( ! $this->initialize_api() ) {
+			return $optin_map;
+		}
+
+		// Get current Project ID.
+		$project_id = $this->get_setting( 'dialoginsightProject' );
+		if ( empty( $project_id ) ) {
+			return;
+		}
+
+		// Prepare list request parameters.
+		$params = array( 'idProject' => $project_id );
+
+		try {
+
+			// Get merge optins.
+			$merge_optins = $this->api->get_list_merge_optins( $params );
+
+		} catch ( Exception $e ) {
+
+			// Log error.
+			$this->log_error( __METHOD__ . '(): Unable to get merge optins for DialogInsight project; ' . $e->getMessage() );
+
+			return $optin_map;
+
+		}
+
+
+
+		// If merge optins exist, add to optin map.
+		if ( ! empty( $merge_optins ) ) {
+
+			// Loop through merge optins.
+			foreach ( $merge_optins as $merge_optin ) {
+
+				// Define required optin type.
+				$field_type = null;
+
+				$field_type = array( 'checkbox', 'radio' );
+
+				// Add to optin map.
+				$optin_map[ $merge_optin['Code'] ] = array(
+					'name'       => $merge_optin['Code'],
+					'label'      => $merge_optin['Labels'][0]['Value'],
+					'required'      => false,
+					'field_type' => $field_type,
+				);
+
+			}
+
+		}
+
+		return $optin_map;
 	}
 
 	/**
@@ -792,6 +755,9 @@ class GFDialogInsight extends GFFeedAddOn {
 		// Get field map values.
 		$field_map = $this->get_field_map_fields( $feed, 'mappedFields' );
 
+		// Get optin map values.
+		$optin_map = $this->get_field_map_fields( $feed, 'mappedOptins' );
+
 		// Get mapped email address.
 		$email = $this->get_field_value( $form, $entry, $field_map['EMail'] );
 
@@ -821,6 +787,8 @@ class GFDialogInsight extends GFFeedAddOn {
 		// Initialize array to store merge vars.
 		$merge_vars = array();
 
+
+
 		// Loop through field map.
 		foreach ( $field_map as $name => $field_id ) {
 
@@ -849,6 +817,40 @@ class GFDialogInsight extends GFFeedAddOn {
 			}
 
 			$merge_vars[ 'f_' . $name ] = $field_value;
+
+		}
+
+		// Loop through optin map.
+		foreach ( $optin_map as $name => $field_id ) {
+
+			// If no field is mapped, skip it.
+			if ( rgblank( $field_id ) ) {
+				continue;
+			}
+
+			// If this is the email field, skip it.
+			//if ( $name === 'EMail' ) {
+			//	continue;
+			//}
+
+			// Set merge var name to current field map name.
+			$this->merge_var_name = $name;
+
+			// Get field object.
+			$field = GFFormsModel::get_field( $form, $field_id );
+
+			// Get field value.
+			$field_value = $this->get_field_value( $form, $entry, $field_id );
+
+			// If field value is empty and we are not overriding empty fields, skip it.
+			if ( empty( $field_value ) && ( ! $override_empty_fields || ( is_object( $field ) && 'address' === $field->get_input_type() ) ) ) {
+				continue;
+			}
+
+
+			if(!empty($field_value)){
+				$merge_vars[ 'optin_' . $name ] = $field_value;
+			}
 
 		}
 
@@ -901,9 +903,8 @@ class GFDialogInsight extends GFFeedAddOn {
 		// If member status is not defined, set to subscribed.
 		$member_status = isset( $member_status ) ? $member_status : 'subscribed';
 
-		$list_id    = $feed['meta']['dialoginsightList'];
 		$project_id = $feed['meta']['dialoginsightProject'];
-		if ( empty( $project_id ) || empty( $list_id ) ) {
+		if ( empty( $project_id ) ) {
 			return;
 		}
 
@@ -911,8 +912,6 @@ class GFDialogInsight extends GFFeedAddOn {
 		$transaction = $member_found ? 'Update' : 'Subscribe';
 
 		$action = $member_found ? 'updated' : 'added';
-
-		$merge_vars[ 'optin_' . $list_id ] = true;
 
 
 		// Prepare request parameters.
@@ -1101,7 +1100,7 @@ class GFDialogInsight extends GFFeedAddOn {
 	 * @param array  $entry       The entry object currently being processed.
 	 * @param string $field_id    The ID of the field being processed.
 	 *
-	 * @return string
+	 * @return mixed|string
 	 */
 	public function maybe_override_field_value( $field_value, $form, $entry, $field_id ) {
 
@@ -1223,5 +1222,9 @@ class GFDialogInsight extends GFFeedAddOn {
 		return $address;
 
 	}
+
+
+
+
 
 }

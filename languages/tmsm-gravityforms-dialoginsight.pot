@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TMSM Gravity Forms DialogInsight Add-On\n"
-"POT-Creation-Date: 2020-08-26 13:36+0200\n"
+"POT-Creation-Date: 2020-09-11 09:54+0200\n"
 "PO-Revision-Date: 2014-10-24 21:08+0100\n"
 "Last-Translator: Nicolas Mollet <nico.mollet@gmail.com>\n"
 "Language-Team: https://github.com/thermesmarins\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: ../class-gf-dialoginsight.php:304
 #: ../class-gf-dialoginsight.php:310
-#: ../class-gf-dialoginsight.php:683
+#: ../class-gf-dialoginsight.php:646
 msgid "Name"
 msgstr ""
 
@@ -53,85 +53,74 @@ msgstr ""
 
 #: ../class-gf-dialoginsight.php:335
 #: ../class-gf-dialoginsight.php:340
-msgid "DialogInsight List"
-msgstr ""
-
-#: ../class-gf-dialoginsight.php:341
-msgid ""
-"Select the DialogInsight list you would like to add your contacts "
-"to."
-msgstr ""
-
-#: ../class-gf-dialoginsight.php:346
-#: ../class-gf-dialoginsight.php:351
 msgid "Map Fields"
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:352
+#: ../class-gf-dialoginsight.php:341
 msgid ""
 "Associate your DialogInsight merge tags to the appropriate "
 "Gravity Form fields by selecting the appropriate form field from "
 "the list."
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:358
-#: ../class-gf-dialoginsight.php:362
+#: ../class-gf-dialoginsight.php:347
+#: ../class-gf-dialoginsight.php:352
+msgid "Map Optins"
+msgstr ""
+
+#: ../class-gf-dialoginsight.php:353
+msgid ""
+"Associate your DialogInsight optins to the appropriate Gravity "
+"Form fields by selecting the appropriate form field from the list."
+msgstr ""
+
+#: ../class-gf-dialoginsight.php:360
+#: ../class-gf-dialoginsight.php:364
 msgid "Conditional Logic"
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:363
+#: ../class-gf-dialoginsight.php:365
 msgid ""
 "When conditional logic is enabled, form submissions will only be "
 "exported to DialogInsight when the conditions are met. When "
 "disabled all form submissions will be exported."
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:407
-#: ../class-gf-dialoginsight.php:422
+#: ../class-gf-dialoginsight.php:410
+#: ../class-gf-dialoginsight.php:425
 #, php-format
 msgid "Could not load DialogInsight projects. %sError: %s"
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:423
-#: ../class-gf-dialoginsight.php:530
+#: ../class-gf-dialoginsight.php:426
 msgid "No lists found."
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:435
+#: ../class-gf-dialoginsight.php:438
 msgid "Select a DialogInsight Project"
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:512
-#: ../class-gf-dialoginsight.php:529
-#, php-format
-msgid "Could not load DialogInsight contact lists. %sError: %s"
-msgstr ""
-
-#: ../class-gf-dialoginsight.php:542
-msgid "Select a DialogInsight List"
-msgstr ""
-
-#: ../class-gf-dialoginsight.php:777
+#: ../class-gf-dialoginsight.php:740
 msgid "Unable to process feed because API could not be initialized."
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:782
-#: ../class-gf-dialoginsight.php:783
+#: ../class-gf-dialoginsight.php:745
+#: ../class-gf-dialoginsight.php:746
 #, php-format
 msgid "TMSM Gravity Forms Dialog Insight on %s: API not initialized"
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:800
+#: ../class-gf-dialoginsight.php:766
 msgid "A valid Email address must be provided."
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:871
+#: ../class-gf-dialoginsight.php:875
 #, php-format
 msgid ""
 "Unable to check if email address is already used by a member: %s"
 msgstr ""
 
-#: ../class-gf-dialoginsight.php:957
+#: ../class-gf-dialoginsight.php:958
 #, php-format
 msgid "Unable to add/update subscriber: %s"
 msgstr ""

@@ -1,3 +1,7 @@
+* Remove Dialog Insight list field
+* Add "Map Optins" fields
+* After installation of this new version, need to change forms: 1/ Remove the optin checkbox field and add an optin radio field with Yes=True/No=False as values 2/  Edit the DialogInsight feed and map the optin to the radio field 
+
 ### 1.0.4: August 26th, 2020
 * Send an email when API could not initialize
 

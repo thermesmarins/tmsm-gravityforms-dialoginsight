@@ -71,30 +71,6 @@ class GF_DialogInsight_API {
 
 	}
 
-
-	/**
-	 * Get all DialogInsight lists.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 *
-	 * @param array $params Params.
-	 *
-	 * @uses   GF_DialogInsight_API::process_request()
-	 * @throws Exception
-	 *
-	 * @return array
-	 */
-	public function get_lists( $params ) {
-
-		$response = $this->process_request( 'Projects', 'Get', $params );
-		$lists    = $response['ProjectInfo']['OptinFields'];
-
-		//error_log(var_export($lists, true));
-		return $lists;
-
-	}
-
 	/**
 	 * Get all DialogInsight Projects.
 	 *
@@ -111,25 +87,6 @@ class GF_DialogInsight_API {
 		$projects = $response['Records'];
 
 		return $projects;
-	}
-
-	/**
-	 * Get all interest categories for a DialogInsight list.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 *
-	 * @param string $list_id DialogInsight list ID.
-	 *
-	 * @uses   GF_DialogInsight_API::process_request()
-	 * @throws Exception
-	 *
-	 * @return array
-	 */
-	public function get_list_interest_categories( $list_id ) {
-
-		return $this->process_request( 'lists/' . $list_id . '/interest-categories', array( 'count' => 9999 ), 'GET', 'categories' );
-
 	}
 
 	/**
@@ -173,8 +130,28 @@ class GF_DialogInsight_API {
 		$response      = $this->process_request( 'Projects', 'Get', $params );
 		$projectfields = $response['ProjectInfo']['ProjectFields'];
 
-		//error_log(var_export($lists, true));
 		return $projectfields;
+	}
+
+	/**
+	 * Get all optins for a DialogInsight list.
+	 *
+	 * @since  1.0.5
+	 * @access public
+	 *
+	 * @param array $params Params.
+	 *
+	 * @uses   GF_DialogInsight_API::process_request()
+	 * @throws Exception
+	 *
+	 * @return array
+	 */
+	public function get_list_merge_optins( $params ) {
+
+		$response      = $this->process_request( 'Projects', 'Get', $params );
+		$projectoptins = $response['ProjectInfo']['OptinFields'];
+
+		return $projectoptins;
 	}
 
 	/**
@@ -271,8 +248,6 @@ class GF_DialogInsight_API {
 		if ( is_wp_error( $response ) ) {
 			throw new GF_DialogInsight_Exception( $response->get_error_message() );
 		}
-
-		error_log(print_r($response, true));
 
 		// Decode response body.
 		$response['body'] = json_decode( $response['body'], true );

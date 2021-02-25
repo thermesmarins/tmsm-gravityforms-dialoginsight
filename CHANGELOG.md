@@ -1,3 +1,6 @@
+### 1.0.6: February 25th, 2021
+* Fix Exception format
+
 ### 1.0.5: September 11th, 2020
 * Remove Dialog Insight list field
 * Add "Map Optins" fields
